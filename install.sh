@@ -8,7 +8,7 @@ fi
 
 # Установка необходимых пакетов
 echo "Установка необходимых пакетов..."
-sudo pacman -Syu --noconfirm git zsh neovim hyprland alacritty dunst rofi waybar # Добавь сюда нужные тебе пакеты
+sudo pacman -Syu --noconfirm git zsh neovim hyprland alacritty dunst rofi waybar eza # Добавь сюда нужные тебе пакеты
 
 # Запрос на установку дополнительных пакетов
 read -p "Введите дополнительные пакеты через пробел (или нажмите Enter, чтобы пропустить): " extra_packages
@@ -29,6 +29,16 @@ if [ -d "$HOME/dotfiles" ]; then
 else
   git clone https://github.com/paskalsq/dotfiles.git "$HOME/dotfiles"
 fi
+
+#Папки
+mkdir -p $HOME/.config/nvim/
+mkdir -p $HOME/.config/hypr/
+mkdir -p $HOME/.config/alacritty/
+mkdir -p $HOME/.config/dunst/
+mkdir -p $HOME/.config/rofi/
+mkdir -p $HOME/.config/waybar/
+mkdir -p $HOME/.config/gtk-3.0/
+mkdir -p $HOME/.config/gtk-4.0/
 
 # Симлинк конфигурационных файлов
 echo "Создание символических ссылок..."
