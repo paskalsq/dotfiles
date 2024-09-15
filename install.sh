@@ -26,31 +26,24 @@ if [ -d "$HOME/dotfiles" ]; then
   echo "Папка dotfiles уже существует, обновляю..."
   cd "$HOME/dotfiles" && git pull
 else
-  git clone https://github.com/your_username/dotfiles.git "$HOME/dotfiles"
+  git clone https://github.com/paskalsq/dotfiles.git "$HOME/dotfiles"
 fi
 
 # Создание необходимых директорий
 echo "Создание необходимых директорий..."
-mkdir -p $HOME/.config/nvim/
-mkdir -p $HOME/.config/hypr/
-mkdir -p $HOME/.config/alacritty/
-mkdir -p $HOME/.config/dunst/
-mkdir -p $HOME/.config/rofi/
-mkdir -p $HOME/.config/waybar/
-mkdir -p $HOME/.config/gtk-3.0/
-mkdir -p $HOME/.config/gtk-4.0/
+mkdir -p $HOME/.config/
 
 # Симлинк конфигурационных файлов
 echo "Создание символических ссылок..."
 ln -sf "$HOME/dotfiles/.zshrc" "$HOME/"
-ln -sf "$HOME/dotfiles/nvim" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/hypr" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/alacritty" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/dunst" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/rofi" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/waybar" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/gtk-3.0" "$HOME/.config/"
-ln -sf "$HOME/dotfiles/gtk-4.0" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/nvim" "$HOME/.config"
+ln -sf "$HOME/dotfiles/hypr" "$HOME/.config"
+ln -sf "$HOME/dotfiles/alacritty" "$HOME/.config"
+ln -sf "$HOME/dotfiles/dunst" "$HOME/.config"
+ln -sf "$HOME/dotfiles/rofi" "$HOME/.config"
+ln -sf "$HOME/dotfiles/waybar" "$HOME/.config"
+ln -sf "$HOME/dotfiles/gtk-3.0" "$HOME/.config"
+ln -sf "$HOME/dotfiles/gtk-4.0" "$HOME/.config"
 
 # Установка Zsh в качестве основной оболочки
 echo "Установка Zsh в качестве основной оболочки..."
