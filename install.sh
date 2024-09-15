@@ -7,7 +7,7 @@ fi
 
 # Установка обязательных пакетов
 echo "Установка обязательных пакетов..."
-sudo pacman -Syu --noconfirm git zsh neovim hyprland alacritty dunst rofi waybar eza fzf
+sudo pacman -Syu --noconfirm git zsh neovim hyprland alacritty dunst rofi waybar eza fzf swww
 
 # Запрос на установку дополнительных пакетов
 read -p "Введите дополнительные пакеты через пробел (или нажмите Enter, чтобы пропустить): " extra_packages
