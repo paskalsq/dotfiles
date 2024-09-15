@@ -39,6 +39,8 @@ ln -sf "$HOME/dotfiles/alacritty/" "$HOME/.config/alacritty"
 ln -sf "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
 ln -sf "$HOME/dotfiles/rofi" "$HOME/.config/rofi"
 ln -sf "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
+ln -sf "$HOME/dotfiles/gtk-3.0/" "$HOME/.config/gtk-3.0/"
+ln -sf "$HOME/dotfiles/gtk-4.0/" "$HOME/.config/gtk-4.0/"
 
 # Добавь сюда другие конфигурационные файлы
 
