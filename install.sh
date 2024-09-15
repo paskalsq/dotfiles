@@ -42,15 +42,15 @@ mkdir -p $HOME/.config/gtk-4.0/
 
 # Симлинк конфигурационных файлов
 echo "Создание символических ссылок..."
-ln -sf "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
-ln -sf "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
-ln -sf "$HOME/dotfiles/hypr" "$HOME/.config/hypr"
-ln -sf "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
-ln -sf "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
-ln -sf "$HOME/dotfiles/rofi" "$HOME/.config/rofi"
-ln -sf "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
-ln -sf "$HOME/dotfiles/gtk-3.0" "$HOME/.config/gtk-3.0"
-ln -sf "$HOME/dotfiles/gtk-4.0" "$HOME/.config/gtk-4.0"
+ln -sf "$HOME/dotfiles/.zshrc" "$HOME/"
+ln -sf "$HOME/dotfiles/nvim" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/hypr" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/alacritty" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/dunst" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/rofi" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/waybar" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/gtk-3.0" "$HOME/.config/"
+ln -sf "$HOME/dotfiles/gtk-4.0" "$HOME/.config/"
 
 # Установка Zsh в качестве основной оболочки
 echo "Установка Zsh в качестве основной оболочки..."
