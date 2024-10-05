@@ -33,7 +33,7 @@ fi
 
 # Создание необходимых директорий
 echo "Создание необходимых директорий..."
-<<<<<<< HEAD
+
 mkdir -p $HOME/.config/nvim/
 mkdir -p $HOME/.config/hypr/
 mkdir -p $HOME/.config/alacritty/
@@ -54,7 +54,7 @@ ln -sf "$HOME/dotfiles/rofi" "$HOME/.config/rofi"
 ln -sf "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
 ln -sf "$HOME/dotfiles/gtk-3.0" "$HOME/.config/gtk-3.0"
 ln -sf "$HOME/dotfiles/gtk-4.0" "$HOME/.config/gtk-4.0"
-=======
+
 mkdir -p $HOME/.config/
 
 # Симлинк конфигурационных файлов
@@ -68,7 +68,7 @@ ln -sf "$HOME/dotfiles/rofi" "$HOME/.config"
 ln -sf "$HOME/dotfiles/waybar" "$HOME/.config"
 ln -sf "$HOME/dotfiles/gtk-3.0" "$HOME/.config"
 ln -sf "$HOME/dotfiles/gtk-4.0" "$HOME/.config"
->>>>>>> 0e454541e6689258a9b673a8d77a082ce1e33f32
+
 
 # Установка Zsh в качестве основной оболочки
 echo "Установка Zsh в качестве основной оболочки..."
