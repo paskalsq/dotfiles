@@ -8,7 +8,7 @@ fi
 # Установка обязательных пакетов
 echo "Установка обязательных пакетов..."
 
-sudo pacman -Syu --noconfirm git zsh neovim hyprland alacritty dunst rofi waybar eza fzf swww which zsh-autosuggestions zsh-syntax-highlighting
+sudo pacman -Syu --noconfirm git zsh neovim hyprland alacritty dunst rofi waybar eza fzf swww which zsh-autosuggestions zsh-syntax-highlighting fastfetch
 
 
 # Запрос на установку дополнительных пакетов
