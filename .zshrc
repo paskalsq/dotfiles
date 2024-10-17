@@ -30,7 +30,7 @@ alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
 alias ascii='~/.config/ml4w/scripts/figlet.sh'
 alias wallpapers='vim /home/paskalsq/dotfiles/.config/hypr/hyprpaper.conr'
 alias cat='bat'
-alias vps='ssh root@45.91.237.159'
+alias vps='ssh paskalsq@45.91.237.159'
 alias windows='sudo bootctl set-oneshot auto-windows; sudo reboot'
 # Set-up FZF key bindings (CTRL R for fuzzy history finder)
 source <(fzf --zsh)
