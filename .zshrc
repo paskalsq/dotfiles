@@ -27,14 +27,9 @@ alias lt='eza -a --tree --level=1 --icons'
 alias obs='QT_QPA_PLATFORM=wayland obs'
 alias vi='$EDITOR'
 alias shutdown='systemctl poweroff'
-<<<<<<< HEAD
-alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
-alias ascii='~/.config/ml4w/scripts/figlet.sh'
 alias wallpapers='vim /home/paskalsq/dotfiles/.config/hypr/hyprpaper.conf'
 alias cat='bat'
-=======
 alias cat='bat'
->>>>>>> 7fa4f884f37af396761e436e08334cf83de00571
 alias windows='sudo bootctl set-oneshot auto-windows; sudo reboot'
 # Set-up FZF key bindings (CTRL R for fuzzy history finder)
 source <(fzf --zsh)
