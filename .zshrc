@@ -1,4 +1,5 @@
 export ZSH="$HOME/.oh-my-zsh"
+export PATH="$HOME/.local/bin:$PATH"
 
 ZSH_THEME="xiong-chiamiov-plus"
 
@@ -28,9 +29,9 @@ alias vi='$EDITOR'
 alias shutdown='systemctl poweroff'
 alias cleanup='~/.config/ml4w/scripts/cleanup.sh'
 alias ascii='~/.config/ml4w/scripts/figlet.sh'
-alias wallpapers='vim /home/paskalsq/dotfiles/.config/hypr/hyprpaper.conr'
+alias wallpapers='vim /home/paskalsq/dotfiles/.config/hypr/hyprpaper.conf'
 alias cat='bat'
-alias vps='ssh paskalsq@45.91.237.159'
+alias vps='ssh paskalsq@94.103.125.104 -p 2343'
 alias windows='sudo bootctl set-oneshot auto-windows; sudo reboot'
 # Set-up FZF key bindings (CTRL R for fuzzy history finder)
 source <(fzf --zsh)
@@ -47,3 +48,6 @@ fastfetch -c examples/15.jsonc
 ## [/Completion]
 
 
+
+# Created by `pipx` on 2024-11-06 16:45:14
+export PATH="$PATH:/home/paskalsq/.local/bin"
