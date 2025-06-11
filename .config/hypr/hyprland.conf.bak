@@ -1,0 +1,295 @@
+#monitors
+monitor=DP-1,1920x1080@144,0x0,1
+monitor=HDMI-A-1,1280x1024@60,1920x0,1
+
+workspace=1,monitor:DP-1
+workspace=2,monitor:HDMI-A-1
+exec-once=hyprctl dispatch workspace 1
+
+#Envs
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+env = NVD_BACKEND,direct
+# QT
+env = QT_QPA_PLATFORM,wayland;xcb
+env = QT_QPA_PLATFORMTHEME,qt6ct
+env = QT_QPA_PLATFORMTHEME,qt5ct
+env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+env = QT_AUTO_SCREEN_SCALE_FACTOR,1
+
+# GDK
+env = GDK_SCALE,1
+
+# Toolkit Backend
+env = GDK_BACKEND,wayland,x11,*
+env = CLUTTER_BACKEND,wayland
+
+# Mozilla
+env = MOZ_ENABLE_WAYLAND,1
+
+# Set the cursor size for xcursor
+env = XCURSOR_SIZE,24
+
+# Disable appimage launcher by default
+env = APPIMAGELAUNCHER_DISABLE,1
+
+# Ozone
+env = OZONE_PLATFORM,wayland
+env = ELECTRON_OZONE_PLATFORM_HINT,auto
+# NVIDIA https://wiki.hyprland.org/Nvidia/
+env = LIBVA_DRIVER_NAME,nvidia
+env = GBM_BACKEND,nvidia-drm
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+# env = __GL_VRR_ALLOWED,1
+# env = WLR_DRM_NO_ATOMIC,1
+
+cursor {
+    no_hardware_cursors = true
+}
+
+#Autostart
+# Setup XDG for screen sharing
+exec-once = ~/.config/hypr/scripts/xdg.sh
+
+# Start Polkit
+# Test Polkit pkexec --user username alacritty
+exec-once=/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Load Dunst Notification Manager
+exec-once = dunst
+
+# Load GTK settings
+exec-once = ~/.config/hypr/scripts/gtk.sh
+
+# Load cliphist history
+exec-once = wl-paste --watch cliphist store
+
+# Start ewww daemon
+exec-once = ags &
+exec-once = librewolf 
+exec-once = udiskie -t & 
+exec-once = clipman store
+exec = udiskie -t nce=/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec-once= nvidia-smi -i 0 -pl 100
+exec-once= Thunar --daemon
+exec-once = waybar 
+exec-once = swww-daemon
+exec-once = ayugram-desktop -startintray
+exec-once = wlsunset -l 51.67 -L 39.18
+exec-once = nekoray
+#Binds
+$mainMod = SUPER
+$SCRIPTS = ~/.config/hypr/scripts
+bind = , Print, exec, grim -g "$(slurp)" $HOME/Pictures/Screenshots/screen-"$(date +%s)".png && wl-copy < $HOME/Pictures/Screenshots/screen-"$(date +%s)".png && notify-send -u normal -i accessories-screenshot "Снимок Экрана" "Сохранен" # Screenshots
+bind = $mainMod, l, exec, hyprlock
+bind = $mainMod, RETURN, exec, alacritty # Open the terminal
+bind = $mainMod, B, exec, librewolf # Open the browser
+bind = $mainMod, E, exec, thunar # Open the filemanager
+
+#Windows
+bind = $mainMod, Q, killactive # Kill active window
+bind = $mainMod, F, fullscreen # Set active window to fullscreen
+bind = $mainMod, T, togglefloating # Toggle active windows into floating mode
+bind = $mainMod, J, togglesplit # Toggle split
+bind = $mainMod, left, movefocus, l # Move focus left
+bind = $mainMod, right, movefocus, r # Move focus right
+bind = $mainMod, up, movefocus, u # Move focus up
+bind = $mainMod, down, movefocus, d # Move focus down
+bindm = $mainMod, mouse:272, movewindow # Move window with the mouse
+bindm = $mainMod, mouse:273, resizewindow # Resize window with the mouse
+bind = $mainMod SHIFT, right, resizeactive, 100 0 # Increase window width with keyboard
+bind = $mainMod SHIFT, left, resizeactive, -100 0 # Reduce window width with keyboard
+bind = $mainMod SHIFT, down, resizeactive, 0 100 # Increase window height with keyboard
+bind = $mainMod SHIFT, up, resizeactive, 0 -100 # Reduce window height with keyboard
+bind = $mainMod, G, togglegroup # Toggle window group
+bind = $mainMod, K, swapsplit # swapsplit
+
+#Actions
+bind = $mainMod CTRL, Q, exec, wlogout -n # Start wlogout
+bind = $mainMod CTRL, RETURN, exec, rofi -show drun # Open application launcher
+bind = $mainMod, V, exec, cliphist list | rofi -dmenu -replace -config ~/.config/rofi/config-cliphist.rasi | cliphist decode | wl-copy # Open clipboard Manager
+
+# Workspaces
+bind = $mainMod, 1, workspace, 1 # Open workspace 1
+bind = $mainMod, 2, workspace, 2 # Open workspace 2
+bind = $mainMod, 3, workspace, 3 # Open workspace 3
+bind = $mainMod, 4, workspace, 4 # Open workspace 4
+bind = $mainMod, 5, workspace, 5 # Open workspace 5
+bind = $mainMod, 6, workspace, 6 # Open workspace 6
+bind = $mainMod, 7, workspace, 7 # Open workspace 7
+bind = $mainMod, 8, workspace, 8 # Open workspace 8
+bind = $mainMod, 9, workspace, 9 # Open workspace 9
+bind = $mainMod, 0, workspace, 10 # Open workspace 10
+
+bind = $mainMod SHIFT, 1, movetoworkspace, 1 # Move active window to workspace 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2 # Move active window to workspace 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3 # Move active window to workspace 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4 # Move active window to workspace 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5 # Move active window to workspace 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6 # Move active window to workspace 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7 # Move active window to workspace 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8 # Move active window to workspace 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9 # Move active window to workspace 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10 # Move active window to workspace 10
+
+bind = $mainMod, Tab, workspace, m+1 # Open next workspace
+bind = $mainMod SHIFT, Tab, workspace, m-1 # Open previous workspace
+
+bind = $mainMod, mouse_down, workspace, e+1 # Open next workspace
+bind = $mainMod, mouse_up, workspace, e-1 # Open previous workspace
+bind = $mainMod CTRL, down, workspace, empty # Open the next empty workspaces
+
+# Passthrough SUPER KEY to Virtual Machine
+bind = $mainMod, P, submap, passthru # Passthrough SUPER key to virtual machine
+submap = passthru
+bind = SUPER, Escape, submap, reset # Get SUPER key back from virtual machine
+submap = reset
+
+# Fn keys
+bind = , XF86MonBrightnessUp, exec, brightnessctl -q s +10% # Increase brightness by 10%
+bind = , XF86MonBrightnessDown, exec, brightnessctl -q s 10%- # Reduce brightness by 10%
+bind = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5% # Increase volume by 5%
+bind = , XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5% # Reduce volume by 5%
+bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle # Toggle mute
+bind = , XF86AudioPlay, exec, playerctl play-pause # Audio play pause
+bind = , XF86AudioPause, exec, playerctl pause # Audio pause
+bind = , XF86AudioNext, exec, playerctl next # Audio next
+bind = , XF86AudioPrev, exec, playerctl previous # Audio previous
+bind = , XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle # Toggle microphone
+bind = , XF86Lock, exec, hyprlock # Open screenlock
+
+input {  
+  kb_layout = us,ru
+  kb_variant =
+  kb_model =
+  kb_options = grp:alt_shift_toggle,caps:backspace
+  kb_rules =
+  
+  numlock_by_default = true
+  
+  follow_mouse = 1
+
+  touchpad {
+    natural_scroll = no
+    tap_button_map = lmr
+  }
+
+  sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+}
+
+animations {
+    enabled = true
+    bezier = linear, 0, 0, 1, 1
+    bezier = md3_standard, 0.2, 0, 0, 1
+    bezier = md3_decel, 0.05, 0.7, 0.1, 1
+    bezier = md3_accel, 0.3, 0, 0.8, 0.15
+    bezier = overshot, 0.05, 0.9, 0.1, 1.1
+    bezier = crazyshot, 0.1, 1.5, 0.76, 0.92 
+    bezier = hyprnostretch, 0.05, 0.9, 0.1, 1.0
+    bezier = fluent_decel, 0.1, 1, 0, 1
+    bezier = easeInOutCirc, 0.85, 0, 0.15, 1
+    bezier = easeOutCirc, 0, 0.55, 0.45, 1
+    bezier = easeOutExpo, 0.16, 1, 0.3, 1
+    animation = windows, 1, 3, md3_decel, popin 60%
+    animation = border, 1, 10, default
+    animation = fade, 1, 2.5, md3_decel
+    animation = workspaces, 1, 3.5, easeOutExpo, slide
+    animation = specialWorkspace, 1, 3, md3_decel, slidevert
+}
+
+general {
+
+  gaps_in = 5
+  gaps_out = 3
+  border_size = 1
+  col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
+  col.inactive_border = rgba(595959aa)
+
+  layout = dwindle
+  no_border_on_floating = yes
+}
+decoration {
+
+  rounding = 1
+
+ # drop_shadow = no
+  #shadow_range = 4
+  #shadow_render_power = 3
+  #col.shadow = rgba(1a1a1aee)
+
+  blur {
+    enabled = no
+  }
+}
+misc {
+  disable_hyprland_logo = true
+  disable_splash_rendering = true
+  disable_autoreload = true
+}
+
+debug {
+  disable_logs = false
+}
+
+
+#Windows rules
+
+windowrule = float,^(org.telegram.desktop)$
+windowrule = float,^(com.ayugram.desktop)$
+windowrulev2 = size 70%, title:^(Media viewer)$
+#Button-Rocket-Ukraine-babax
+windowrule = size 900 600,^(lutris)$ 
+windowrule = float,^(lutris)$ 
+windowrule = center,^(lutris)$
+#Porn
+windowrule = float,^(mpv)$ 
+windowrule = size 800 450,^(mpv)$ 
+windowrule = center,^(mpv)$
+#Audio
+windowrule = float,^(org.pulseaudio.pavucontrol)$ 
+windowrule = size 730 400,^(org.pulseaudio.pavucontrol)$ 
+windowrule = move 1125 65,^(org.pulseaudio.pavucontrol)$
+#PornPics
+windowrule = float,^(eog)$ 
+windowrule = size 1057 679,^(eog)$ 
+windowrule = center,^(eog)$
+#VPN
+windowrule = float,^(nekoray)$ 
+windowrule = float,^(nekobox)$ 
+#Zalupa
+windowrule = float, file_progress
+windowrule = float, confirm
+windowrule = float, dialog
+windowrule = float, download
+windowrule = float, notification
+windowrule = float, error
+windowrule = float, splash
+windowrule = float, confirmreset
+#firefox
+windowrulev2 = float, class:(firefox),title:(Picture-in-Picture)
+windowrulev2 = move 1259 710, class:(firefox),title:(Picture-in-Picture)
+windowrulev2 = pin, class:(firefox),title:(Picture-in-Picture)
+
+
+windowrule = tile,^(Chromium)$
+windowrule = float,^(pavucontrol)$
+windowrule = float,^(blueman-manager)$
+windowrule = float,^(nm-connection-editor)$
+windowrule = float,^(qalculate-gtk)$
+windowrule = float,^(lutris)$
+windowrule = float,center,^(telegram-desktop)$
+windowrule = float,center,^(cmus)$
+#KDE
+windowrule = float,^(org.kde.kdeconnect.handler)&
+windowrule = center,^(org.kde.kdeconnect.handler)$
+
+#Proton
+windowrule = float,^(PortProton)&
+windowrule = center,^(PortProton)&
+
+windowrulev2 = float, class:LibreWolf, title:^(Расширение: \(Bitwarden - Менеджер паролей\) - Bitwarden — LibreWolf)$
+windowrulev2 = size 639 756, class:LibreWolf, title:^(Расширение: \(Bitwarden - Менеджер паролей\) - Bitwarden — LibreWolf)$
+windowrulev2 = move 1250 218, class:LibreWolf, title:^(Расширение: \(Bitwarden - Менеджер паролей\) - Bitwarden — LibreWolf)$
+windowrulev2 = workspace 1, class:LibreWolf, title:^(Расширение: \(Bitwarden - Менеджер паролей\) - Bitwarden — LibreWolf)$
+

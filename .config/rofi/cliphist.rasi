@@ -1,0 +1,56 @@
+* {
+    font: "JetBrainsMono Nerd Font 12";
+    border: 0;
+    border-radius: 12px;
+    padding: 6;
+    background: #1e1e2e;
+    foreground: #cdd6f4;
+    selected-normal-background: #f5c2e7; // розовый
+    selected-normal-foreground: #1e1e2e;
+    background-alt: #313244;
+    separatorcolor: #45475a;
+    margin: 0;
+}
+
+element {
+    padding: 5 10;
+}
+
+element selected {
+    background: @selected-normal-background;
+    text-color: @selected-normal-foreground;
+}
+
+entry {
+    background: #313244;
+    text-color: #cdd6f4;
+    padding: 6;
+    border-radius: 8px;
+}
+
+mainbox {
+    background-color: @background;
+    border-radius: 12px;
+}
+
+listview {
+    scrollbar: true;
+    border: 0;
+    padding: 4;
+}
+
+scrollbar {
+    width: 8px;
+    handle-color: #cba6f7; // сиреневый
+    handle-width: 8px;
+    padding: 0;
+    border: 0;
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    width: 40%;
+}
+
