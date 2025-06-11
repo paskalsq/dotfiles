@@ -15,16 +15,16 @@ success() { printf "${GREEN}✔ %s${NC}\n" "$1"; }
 error() { printf "${RED}✖ %s${NC}\n" "$1"; }
 
 get_username() {
-    read -p "Введите ваше имя пользователя (username): " -r USERNAME
+    read -p "Type in your username: " -r USERNAME
     if [ -z "$USERNAME" ]; then
-        error "Имя пользователя не может быть пустым."
+        error "Username cannot be empty"
         exit 1
     fi
-    info "Скрипт будет запущен для пользователя: $USERNAME"
+    info "Script will be running for: $USERNAME"
 }
 
 bootstrap_system() {
-    info "Обновление системы и установка doas..."
+    info "System update and doas installation..."
     sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
     sudo pacman -Syu --noconfirm --needed opendoas
     success "Система обновлена, doas установлен."
@@ -37,9 +37,9 @@ configure_doas() {
     
     if ! sudo grep -qF "$doas_conf_line" /etc/doas.conf &>/dev/null; then
         echo "$doas_conf_line" | sudo tee /etc/doas.conf > /dev/null
-        chown -c root:root /etc/doas.conf
-        chmod -c 0400 /etc/doas.conf
-        success "Правило для пользователя $USERNAME добавлено в /etc/doas.conf."
+       sudo chown -c root:root /etc/doas.conf
+       sudo chmod -c 0400 /etc/doas.conf
+        success "правило для пользователя $username добавлено в /etc/doas.conf."
     else
         success "Правило для doas уже существует."
     fi
