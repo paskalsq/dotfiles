@@ -16,6 +16,6 @@ Includes configuration for:
 Clone the repo:
 
 ```bash
-git clone git@github.com:paskalsq/dotfiles.git
+git clone https://github.com/paskalsq/dotfiles.git
 cd dotfiles
 ./install.sh
