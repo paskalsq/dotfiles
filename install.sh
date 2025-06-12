@@ -19,13 +19,16 @@ error() { printf "${RED}✖ %s${NC}\n" "$1"; }
 # --- Script Functions ---
 
 get_username() {
-    read -p "Type in your username: " -r USERNAME
-    if [ -z "$USERNAME" ]; then
-        error "Username cannot be empty"
-        exit 1
-    fi
-    info "Script will be running for: $USERNAME"
+  USERNAME="${USERNAME:-$USER}"
+
+  if [ -z "$USERNAME" ]; then
+    error "Username cannot be determined"
+    exit 1
+  fi
+
+  info "Script will be running for: $USERNAME"
 }
+
 
 bootstrap_system() {
     info "System update and doas installation..."
