@@ -162,8 +162,8 @@ apply_dotfiles() {
 }
 
 install_zshplugins() {
-  # Установка Zsh-плагинов
-echo ">> Клонируем zsh-плагины..."
+
+echo ">> Cloning zsh-plugins..."
 
 ZSH_PLUGINS_DIR="${HOME}/.zsh_plugins"
 mkdir -p "$ZSH_PLUGINS_DIR"
@@ -188,7 +188,7 @@ if [ ! -d "${ZSH_PLUGINS_DIR}/zsh-autosuggestions" ]; then
   git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_PLUGINS_DIR}/zsh-autosuggestions"
 fi
 
-echo ">> Плагины установлены."
+echo ">> Plugins installed."
 
 }
 
