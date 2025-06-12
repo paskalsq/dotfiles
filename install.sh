@@ -66,7 +66,7 @@ install_pacman_packages() {
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
         zoxide nvidia-dkms nvidia-utils lib32-nvidia-utils egl-wayland hyprland
         swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire zsh rofi alacritty)
+        gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
@@ -159,6 +159,37 @@ apply_dotfiles() {
     cd "$(dirname "$0")"
     stow --target="$HOME" --restow .
     success "Dotfiles applied successfully."
+}
+
+install_zshplugins() {
+  # Установка Zsh-плагинов
+echo ">> Клонируем zsh-плагины..."
+
+ZSH_PLUGINS_DIR="${HOME}/.zsh_plugins"
+mkdir -p "$ZSH_PLUGINS_DIR"
+
+# Powerlevel10k
+if [ ! -d "${ZSH_PLUGINS_DIR}/powerlevel10k" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_PLUGINS_DIR}/powerlevel10k"
+fi
+
+# Oh-My-Zsh 
+if [ ! -d "${ZSH_PLUGINS_DIR}/ohmyzsh" ]; then
+  git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "${ZSH_PLUGINS_DIR}/ohmyzsh"
+fi
+
+# fast-syntax-highlighting
+if [ ! -d "${ZSH_PLUGINS_DIR}/fast-syntax-highlighting" ]; then
+  git clone --depth=1 https://github.com/zdharma-continuum/fast-syntax-highlighting.git "${ZSH_PLUGINS_DIR}/fast-syntax-highlighting"
+fi
+
+# zsh-autosuggestions
+if [ ! -d "${ZSH_PLUGINS_DIR}/zsh-autosuggestions" ]; then
+  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_PLUGINS_DIR}/zsh-autosuggestions"
+fi
+
+echo ">> Плагины установлены."
+
 }
 
 main() {
