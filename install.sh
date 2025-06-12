@@ -74,7 +74,7 @@ install_paru() {
     info "Installing AUR helper (paru)..."
     if ! command -v paru &> /dev/null; then
         info "paru not found. Installing..."
-        git clone https://aur.archlinux.org/packages/paru /tmp/paru
+        git clone https://aur.archlinux.org/paru.git /tmp/paru
         (cd /tmp/paru && makepkg -si --noconfirm)
         rm -rf /tmp/paru
         success "paru installed successfully."
