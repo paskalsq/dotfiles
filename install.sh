@@ -211,6 +211,7 @@ main() {
     
     # Final user configuration
     setup_zsh
+    install_zshplugins
     apply_dotfiles
     enable_services
     echo
