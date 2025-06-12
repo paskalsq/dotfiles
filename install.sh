@@ -3,6 +3,7 @@
 
 set -e
 
+# --- Colors ---
 BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -10,9 +11,12 @@ NC='\033[0m' # No Color
 
 USERNAME=""
 
+# --- Helper Functions ---
 info() { printf "\n${BLUE}:: %s${NC}\n" "$1"; }
 success() { printf "${GREEN}✔ %s${NC}\n" "$1"; }
 error() { printf "${RED}✖ %s${NC}\n" "$1"; }
+
+# --- Script Functions ---
 
 get_username() {
     read -p "Type in your username: " -r USERNAME
@@ -25,136 +29,137 @@ get_username() {
 
 bootstrap_system() {
     info "System update and doas installation..."
+    sudo pacman -Syu --noconfirm --needed opendoas reflector
     sudo reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-    sudo pacman -Syu --noconfirm --needed opendoas
-    success "Система обновлена, doas установлен."
+    sudo pacman -Sy
+    success "System updated, doas installed, mirrors selected."
 }
 
-# 2. Настройка doas
+# 2. Configure doas
 configure_doas() {
-    info "Настройка doas..."
+    info "Configuring doas..."
     local doas_conf_line="permit persist ${USERNAME} as root"
     
     if ! sudo grep -qF "$doas_conf_line" /etc/doas.conf &>/dev/null; then
         echo "$doas_conf_line" | sudo tee /etc/doas.conf > /dev/null
        sudo chown -c root:root /etc/doas.conf
        sudo chmod -c 0400 /etc/doas.conf
-        success "правило для пользователя $username добавлено в /etc/doas.conf."
+        success "Rule for user $USERNAME added to /etc/doas.conf."
     else
-        success "Правило для doas уже существует."
+        success "Doas rule already exists."
     fi
 }
 
-# 3. Установка основных пакетов из официальных репозиториев
+# 3. Install core packages from official repositories
 install_pacman_packages() {
-    info "Установка пакетов из официальных репозиториев..."
+    info "Installing packages from official repositories..."
     
     local packages=(
-        alsa-tools alsa-utils bat cups dnsmasq downgrade dua-cli dust eza fd fzf
+        alsa-tools alsa-utils bat cups dnsmasq dua-cli dust eza fd fzf
         gparted gvfs gvfs-gphoto2 gvfs-mtp gvfs-nfs htop libappindicator-gtk3
-        libguestfs man-db mpc mpd ncmpcpp netstat-nat npm obfs4proxy obs-studio
-        openbsd-netcat python-eyed3 qemu-full qt5-wayland reflector ripgrep sof-firmware
-        steam stow thunar tor torbrowser-launcher traceroute tree unrar unzip
+        libguestfs man-db cmus netstat-nat npm obs-studio
+        openbsd-netcat qemu-full qt5-wayland ripgrep sof-firmware
+        stow thunar tor torbrowser-launcher traceroute tree unrar unzip
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
         zoxide nvidia-dkms nvidia-utils lib32-nvidia-utils egl-wayland hyprland
         swww ly neovim vim git wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire lib32-pipewire lib32-pipewire-jack)
+        gst-plugin-pipewire)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
-    success "Все пакеты из репозиториев установлены."
+    success "All packages from repositories are installed."
 }
 
-# 4. Установка AUR-хелпера (paru)
+# 4. Install AUR helper (paru)
 install_paru() {
-    info "Установка AUR-хелпера (paru)..."
+    info "Installing AUR helper (paru)..."
     if ! command -v paru &> /dev/null; then
-        info "paru не найден. Установка..."
+        info "paru not found. Installing..."
         git clone https://aur.archlinux.org/packages/paru /tmp/paru
         (cd /tmp/paru && makepkg -si --noconfirm)
         rm -rf /tmp/paru
-        success "paru успешно установлен."
+        success "paru installed successfully."
     else
-        info "paru уже установлен."
+        info "paru is already installed."
     fi
 }
 
-# 5. Настройка системных файлов
+# 5. Configure system files
 configure_system_files() {
-    info "Настройка системных файлов..."
+    info "Configuring system files..."
 
     if [ -f /etc/paru.conf ]; then
         if ! grep -q "Sudo = doas" /etc/paru.conf; then
             doas sed -i '/\[bin\]/a Sudo = doas' /etc/paru.conf
-            success "Paru настроен на использование doas."
+            success "Paru is configured to use doas."
         fi
     else
         printf "[bin]\nSudo = doas\n" | doas tee /etc/paru.conf > /dev/null
-        success "Создан /etc/paru.conf и настроен на использование doas."
+        success "Created /etc/paru.conf and configured to use doas."
     fi
 
-    info "Настройка драйверов NVIDIA..."
+    info "Configuring NVIDIA drivers..."
     local nvidia_conf_content="options nvidia_drm modeset=1"
     echo "$nvidia_conf_content" | doas tee /etc/modprobe.d/nvidia.conf > /dev/null
-    success "Создан /etc/modprobe.d/nvidia.conf."
+    success "Created /etc/modprobe.d/nvidia.conf."
 
-    info "Добавление модулей NVIDIA в mkinitcpio..."
+    info "Adding NVIDIA modules to mkinitcpio..."
     doas sed -i 's/^MODULES=.*/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
-    success "Модули NVIDIA добавлены в /etc/mkinitcpio.conf."
+    success "NVIDIA modules added to /etc/mkinitcpio.conf."
     
-    info "Пересборка initramfs (mkinitcpio)..."
+    info "Rebuilding initramfs (mkinitcpio)..."
     doas mkinitcpio -P
-    success "Initramfs успешно пересобран."
+    success "Initramfs rebuilt successfully."
 }
 
 install_aur_packages() {
-    info "Установка пакетов из AUR..."
+    info "Installing packages from AUR..."
     local packages=(
         "librewolf-bin"
         "waybar-git" 
         "localsend-bin"
         "nekoray-bin"
+        "downgrade"
+        "obfs4proxy"
     )
 
     paru -S --noconfirm --needed "${packages[@]}"
-    success "Все пакеты из AUR установлены."
+    success "All packages from AUR are installed."
 }
 
 enable_services() {
-    info "Активация системных и пользовательских сервисов..."
+    info "Enabling system and user services..."
 
-    info "Активация сервисов PipeWire..."
+    info "Enabling PipeWire services..."
     systemctl --user enable pipewire.service
     systemctl --user enable pipewire-pulse.service
     systemctl --user enable wireplumber.service
-    success "Сервисы PipeWire активированы для пользователя $USERNAME."
+    success "PipeWire services enabled for user $USERNAME."
 
-    info "Активация Ly Display Manager..."
+    info "Enabling Ly Display Manager..."
     doas systemctl enable ly.service
-    success "Сервис Ly Display Manager активирован."
+    success "Ly Display Manager service enabled."
 }
 
-
-
-# 7. Смена оболочки на Zsh
+# 7. Change shell to Zsh
 setup_zsh() {
-    info "Настройка Zsh как оболочки по умолчанию..."
+    info "Setting Zsh as the default shell..."
     if [[ "$SHELL" != "/bin/zsh" ]]; then
         doas chsh -s "$(which zsh)" "$USERNAME"
-        success "Оболочка по умолчанию для $USERNAME изменена на Zsh."
+        success "Default shell for $USERNAME changed to Zsh."
     else
-        info "Zsh уже является оболочкой по умолчанию."
+        info "Zsh is already the default shell."
     fi
 }
 
 apply_dotfiles() {
-    info "Применение конфигурационных файлов (dotfiles) с помощью stow..."
+    info "Applying configuration files (dotfiles) using stow..."
     cd "$(dirname "$0")"
     stow --target="$HOME" --restow */
-    success "Dotfiles успешно применены."
+    success "Dotfiles applied successfully."
 }
 
 main() {
-    read -p "Этот скрипт установит программы и настроит систему. Продолжить? (y/n) " -n 1 -r
+    read -p "This script will install programs and configure the system. Continue? (y/n) " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         exit 1
@@ -166,17 +171,17 @@ main() {
     
     install_pacman_packages
     configure_system_files     
-    # Установка и использование paru
+    # Install and use paru
     install_paru
     install_aur_packages
     
-    # Финальные пользовательские настройки
+    # Final user configuration
     setup_zsh
     apply_dotfiles
     enable_services
     echo
-    success "🎉 Установка и настройка завершены!"
-    info "КРАЙНЕ ВАЖНО: перезагрузи компьютер, чтобы применились драйверы NVIDIA и другие системные изменения."
+    success "Installation and configuration complete!"
+    info "EXTREMELY IMPORTANT: reboot your computer to apply NVIDIA driver and other system changes."
 }
 
 main
