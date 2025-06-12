@@ -62,7 +62,7 @@ alias ls='exa --icons --group-directories-first --color=always'     # Replace ls
 alias ll='exa -l --icons --group-directories-first --color=always'  # Long listing
 alias la='exa -la --icons --group-directories-first --color=always' # Include hidden files
 alias lt='exa --tree --level=2 --icons --color=always'              # Tree view
-alias grep='rg'                                                     # Replace grep with ripgrep
+# alias grep='rg'                                                     # Replace grep with ripgrep
 alias find='fd'                                                     # Replace find with fd
 alias f='fd'                                                        # Quick file search
 alias du='dust'                                                     # Replace du with dust
