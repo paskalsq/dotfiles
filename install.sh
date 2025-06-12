@@ -65,8 +65,8 @@ install_pacman_packages() {
         stow thunar tor torbrowser-launcher traceroute tree unrar unzip
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
         zoxide nvidia-dkms nvidia-utils lib32-nvidia-utils egl-wayland hyprland
-        swww ly neovim vim git wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire)
+        swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
+        gst-plugin-pipewire zsh)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
