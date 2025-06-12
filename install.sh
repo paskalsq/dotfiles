@@ -66,7 +66,7 @@ install_pacman_packages() {
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
         zoxide nvidia-dkms nvidia-utils lib32-nvidia-utils egl-wayland hyprland
         swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire zsh)
+        gst-plugin-pipewire zsh rofi alacritty)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
@@ -157,7 +157,7 @@ setup_zsh() {
 apply_dotfiles() {
     info "Applying configuration files (dotfiles) using stow..."
     cd "$(dirname "$0")"
-    stow --target="$HOME" --restow */
+    stow --target="$HOME" --restow .
     success "Dotfiles applied successfully."
 }
 
