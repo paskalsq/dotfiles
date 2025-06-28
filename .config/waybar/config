@@ -5,7 +5,7 @@
     // "width": 1920, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "idle_inhibitor", "pulseaudio", "backlight", "custom/updates"],
+    "modules-left": ["hyprland/workspaces", "pulseaudio", "backlight", "custom/updates"],
     "modules-center": ["hyprland/window"],
     "modules-right": ["hyprland/submap", "hyprland/language", "cpu", "memory", "tray", "clock"],
     // Modules configuration
