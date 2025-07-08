@@ -98,12 +98,10 @@ configure_system_files() {
     else
         printf "[bin]\nSudo = doas\n" | doas tee /etc/paru.conf > /dev/null
         success "Created /etc/paru.conf and configured to use doas."
-    fi 
-  }
-nvidia(){  
-  info "Configuring NVIDIA drivers..."
-   
-  local nvidia_conf_content="options nvidia_drm modeset=1"
+    fi
+
+    info "Configuring NVIDIA drivers..."
+    local nvidia_conf_content="options nvidia_drm modeset=1"
     echo "$nvidia_conf_content" | doas tee /etc/modprobe.d/nvidia.conf > /dev/null
     success "Created /etc/modprobe.d/nvidia.conf."
 
@@ -206,16 +204,7 @@ main() {
     configure_doas
     
     install_pacman_packages
-    configure_system_files
-    read -rp "Install Nvidia drivers [y/N]: " answer
-    case "$answer" in 
-      [yY])
-        nvidia
-        ;;
-      *)
-        echo "Okay, fuck it."
-        ;;
-    esac
+    configure_system_files     
     # Install and use paru
     install_paru
     install_aur_packages
