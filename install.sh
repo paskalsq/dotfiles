@@ -64,7 +64,7 @@ install_pacman_packages() {
         openbsd-netcat qemu-full qt5-wayland ripgrep sof-firmware
         stow thunar tor torbrowser-launcher traceroute tree unrar unzip
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
-        zoxide nvidia-dkms nvidia-utils lib32-nvidia-utils egl-wayland hyprland
+        zoxide egl-wayland hyprland
         swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
         gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipman clipnotify wl-clipboard)
 
@@ -102,7 +102,9 @@ configure_system_files() {
   }
 nvidia(){  
   info "Configuring NVIDIA drivers..."
-   
+  
+  doas pacman -S --needed nvidia-dkms nvidia-utils lib32-nvidia-utils  
+  
   local nvidia_conf_content="options nvidia_drm modeset=1"
     echo "$nvidia_conf_content" | doas tee /etc/modprobe.d/nvidia.conf > /dev/null
     success "Created /etc/modprobe.d/nvidia.conf."
