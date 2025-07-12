@@ -125,3 +125,8 @@ bindkey '^f' fzf-edit-dotfile
 # To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/paskalsq/.lmstudio/bin"
+# End of LM Studio CLI section
+
