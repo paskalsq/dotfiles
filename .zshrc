@@ -101,6 +101,17 @@ open_command() {
   fi
 }
 
+function clear-screen-and-scrollback() {
+  builtin echoti civis >"$TTY"
+  builtin print -rn -- $'\e[H\e[2J' >"$TTY"
+  builtin zle .reset-prompt
+  builtin zle -R
+  builtin print -rn -- $'\e[3J' >"$TTY"
+  builtin echoti cnorm >"$TTY"
+}
+zle -N clear-screen-and-scrollback
+bindkey '^L' clear-screen-and-scrollback
+
 # Create a function to find a file with fzf and put it in the command buffer
 fzf-edit-dotfile() {
   # Run find and fzf, storing the selected file in a variable
@@ -116,17 +127,13 @@ fzf-edit-dotfile() {
 # Create a ZLE widget from the function
 zle -N fzf-edit-dotfile 
 
-
 bindkey "^[[1;5C" forward-word      # Ctrl+→
 bindkey "^[[1;5D" backward-word     # Ctrl+←
 bindkey '^f' fzf-edit-dotfile
-
 # Load Powerlevel10k configuration if it exists
-# To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/paskalsq/.lmstudio/bin"
 # End of LM Studio CLI section
-
