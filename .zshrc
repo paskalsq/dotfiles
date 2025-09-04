@@ -33,7 +33,8 @@ zstyle ':completion:*' format '%B%d%b'         # Format completion groups
 
 # Command history settings
 HISTFILE=$HOME/.zsh_history                    # File to store command history
-SAVEHIST=5000                                  # Number of commands to save
+SAVEHIST=10000                                 # Number of commands to save
+HISTSIZE=10000                                 # History during shell session
 setopt HIST_IGNORE_SPACE                       # Ignore commands starting with a space
 setopt HIST_IGNORE_DUPS                        # Ignore duplicates of the previous command
 setopt INC_APPEND_HISTORY                      # Save commands to history immediately
