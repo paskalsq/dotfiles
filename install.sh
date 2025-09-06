@@ -65,7 +65,7 @@ install_pacman_packages() {
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
         zoxide egl-wayland hyprland
         swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipman clipnotify wl-clipboard)
+        gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipman clipnotify wl-clipboard tumbler)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
