@@ -1,17 +1,14 @@
-#!/bin/bash
+#/bin/bash
 
-# Check if cmus is playing and pause it
-if cmus-remote -Q | grep -q "status playing"; then
-    cmus-remote -u
-    WAS_PLAYING=1
+if playerctl status | grep -q "Playing"; then
+  playerctl play-pause
+  PLAYING=1
 else
-    WAS_PLAYING=0
+  PLAYING=0
 fi
 
-# Lock screen
-hyprlock --immediate
+hyprlock -q
 
-# Resume if was playing
-if [ "$WAS_PLAYING" -eq 1 ]; then
-    cmus-remote -u
+if [ "$PLAYING" -eq 1 ]; then
+  playerctl play-pause
 fi
