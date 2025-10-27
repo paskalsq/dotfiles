@@ -59,7 +59,7 @@ install_pacman_packages() {
     local packages=(
         alsa-tools alsa-utils bat cups dnsmasq dua-cli dust eza fd fzf
         gparted gvfs gvfs-gphoto2 gvfs-mtp gvfs-nfs htop libappindicator-gtk3
-        libguestfs man-db cmus netstat-nat npm obs-studio
+        libguestfs man-db cmus netstat-nat obs-studio
         openbsd-netcat qemu-full qt5-wayland ripgrep sof-firmware
         stow thunar tor torbrowser-launcher traceroute tree unrar unzip
         veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
