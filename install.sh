@@ -76,7 +76,9 @@ install_useless_shit() {
   
   local packages=(qemu-full openbsd-netcat tor torbrowser-launcher traceroute tree unrar unzip
         veracrypt virt-manager virt-viewer obs-studio)
+  
   doas pacman -S --noconfirm --needed "${packages[@]}"
+  success "No."
 }
 
 # 4. Install AUR helper (paru)
