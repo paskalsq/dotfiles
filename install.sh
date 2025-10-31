@@ -168,7 +168,7 @@ apply_dotfiles() {
     info "Applying configuration files (dotfiles) using stow..."
     cd "$(dirname "$0")"
     stow --target="$HOME" --restow .
-    swww img $HOME/.dotfiles/.wallpapers/10.jpg
+    swww img $HOME/dotfiles/.wallpapers/10.jpg
     success "Dotfiles applied successfully."
 }
 
