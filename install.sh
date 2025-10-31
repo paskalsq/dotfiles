@@ -52,23 +52,30 @@ configure_doas() {
     fi
 }
 
-# 3. Install core packages from official repositories
+# 3. Install packages
 install_pacman_packages() {
-    info "Installing packages from official repositories..."
+    info "Installing packages..."
     
     local packages=(
         alsa-tools alsa-utils bat cups dnsmasq dua-cli dust eza fd fzf
         gparted gvfs gvfs-gphoto2 gvfs-mtp gvfs-nfs htop libappindicator-gtk3
-        libguestfs man-db cmus netstat-nat obs-studio
-        openbsd-netcat qemu-full qt5-wayland ripgrep sof-firmware
-        stow thunar tor torbrowser-launcher traceroute tree unrar unzip
-        veracrypt virt-manager virt-viewer xdg-desktop-portal-hyprland xorg-xhost
+        libguestfs man-db cmus netstat-nat
+        qt5-wayland ripgrep sof-firmware
+        stow thunar xdg-desktop-portal-hyprland xorg-xhost
         zoxide egl-wayland hyprland
         swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
         gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipman clipnotify wl-clipboard tumbler)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
+}
+
+# Programs
+install_useless_shit() {
+  info "Installing something"
+  
+  local packages=(qemu-full openbsd-netcat tor torbrowser-launcher traceroute tree unrar unzip
+        veracrypt virt-manager virt-viewer obs-studio)
 }
 
 # 4. Install AUR helper (paru)
@@ -208,6 +215,17 @@ main() {
     configure_doas
     
     install_pacman_packages
+    
+    read -rp "Install some shit? [y/Nigger]: " answer
+    case "$answer" in 
+      [yY])
+        install_useless_shit
+        ;;
+      *)
+        echo "Okay, let's commit war crimes in git commits"
+        ;;
+    esac
+    
     configure_system_files
     read -rp "Install Nvidia drivers [y/N]: " answer
     case "$answer" in 
