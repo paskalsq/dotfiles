@@ -64,7 +64,7 @@ install_pacman_packages() {
         stow thunar xdg-desktop-portal-hyprland xorg-xhost
         zoxide egl-wayland hyprland
         swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipman clipnotify wl-clipboard tumbler)
+        gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipnotify wl-clipboard tumbler)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
@@ -127,6 +127,7 @@ nvidia(){
 install_aur_packages() {
     info "Installing packages from AUR..."
     local packages=(
+        "clipman"
         "librewolf-bin"
         "waybar-git" 
         "localsend-bin"
