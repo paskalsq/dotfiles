@@ -57,14 +57,12 @@ install_pacman_packages() {
     info "Installing packages..."
     
     local packages=(
-        alsa-tools alsa-utils bat cups dnsmasq dua-cli dust eza fd fzf
-        gparted gvfs gvfs-gphoto2 gvfs-mtp gvfs-nfs htop libappindicator-gtk3
-        libguestfs man-db cmus netstat-nat
-        qt5-wayland ripgrep sof-firmware
+        bat dua-cli dust eza fzf
+        gparted cmus qt5-wayland 
         stow thunar xdg-desktop-portal-hyprland xorg-xhost
-        zoxide egl-wayland hyprland
-        swww ly neovim vim wget base-devel pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
-        gst-plugin-pipewire zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipnotify wl-clipboard tumbler)
+        zoxide egl-wayland hyprland waybar
+        swww ly neovim wget pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
+        zsh rofi alacritty ttf-jetbrains-mono-nerd cliphist clipnotify wl-clipboard tumbler)
 
     doas pacman -S --noconfirm --needed "${packages[@]}"
     success "All packages from repositories are installed."
@@ -74,7 +72,7 @@ install_pacman_packages() {
 install_useless_shit() {
   info "Installing something"
   
-  local packages=(qemu-full openbsd-netcat tor torbrowser-launcher traceroute tree unrar unzip
+  local packages=(qemu-desktop dnsmasq openbsd-netcat tor torbrowser-launcher traceroute tree unrar unzip
         veracrypt virt-manager virt-viewer obs-studio)
   
   doas pacman -S --noconfirm --needed "${packages[@]}"
@@ -86,9 +84,9 @@ install_paru() {
     info "Installing AUR helper (paru)..."
     if ! command -v paru &> /dev/null; then
         info "paru not found. Installing..."
-        git clone https://aur.archlinux.org/paru-bin.git /tmp/paru-bin
+        git clone https://aur.archlinux.org/paru.git /tmp/paru
         (cd /tmp/paru-bin && makepkg -si --noconfirm)
-        rm -rf /tmp/paru-bin
+        rm -rf /tmp/paru
         success "paru installed successfully."
     else
         info "paru is already installed."
@@ -112,7 +110,7 @@ configure_system_files() {
 nvidia(){  
   info "Configuring NVIDIA drivers..."
   
-  doas pacman -S --needed nvidia-dkms nvidia-utils lib32-nvidia-utils  
+  doas pacman -S --needed nvidia-dkms nvidia-utils 
   
   local nvidia_conf_content="options nvidia_drm modeset=1"
     echo "$nvidia_conf_content" | doas tee /etc/modprobe.d/nvidia.conf > /dev/null
@@ -130,12 +128,9 @@ nvidia(){
 install_aur_packages() {
     info "Installing packages from AUR..."
     local packages=(
-        "clipman"
         "librewolf-bin"
-        "waybar-git" 
         "localsend-bin"
         "nekoray-bin"
-        "downgrade"
         "obfs4proxy"
     )
 
