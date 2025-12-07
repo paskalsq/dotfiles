@@ -128,6 +128,10 @@ fzf-edit-dotfile() {
 # Create a ZLE widget from the function
 zle -N fzf-edit-dotfile 
 
+if [[ -z "$TMUX" ]]; then
+  tmux new-session -A -s main
+fi
+
 bindkey "^[[1;5C" forward-word      # Ctrl+→
 bindkey "^[[1;5D" backward-word     # Ctrl+←
 bindkey '^f' fzf-edit-dotfile
@@ -137,4 +141,3 @@ bindkey '^f' fzf-edit-dotfile
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/paskalsq/.lmstudio/bin"
-# End of LM Studio CLI section

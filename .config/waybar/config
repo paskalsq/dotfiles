@@ -5,7 +5,7 @@
     // "width": 1920, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/workspaces", "pulseaudio", "custom/audio"],
+    "modules-left": ["hyprland/workspaces", "pulseaudio", "custom/audio", "custom/cd"],
     "modules-center": ["hyprland/window"],
     "modules-right": ["hyprland/submap", "hyprland/language", "cpu", "memory", "tray", "clock"],
     // Modules configuration
@@ -89,6 +89,10 @@
    "custom/audio":{
      "format": "󰓃",
         "on-click": "$HOME/.config/waybar/toggle.sh",
+   },
+   "custom/cd":{
+     "format": "󰗮",
+        "on-click": "$HOME/cd.sh"
    },
     "pulseaudio": {
         // "scroll-step": 10, // %, can be a float
